@@ -1,0 +1,338 @@
+/* Phase 6 – Softer dark theme, tighter spacing for PC display */
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    line-height: 1.55;
+    background: #2c2f33;
+    color: #dcddde;
+}
+
+.container {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 0 1.25rem;
+    width: 100%;
+}
+
+/* Header */
+header {
+    background: #23272a;
+    color: #dcddde;
+    padding: 0.7rem 0 0.5rem;
+    border-bottom: 3px solid #5b8c7a;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.75rem;
+    font-weight: 700;
+}
+
+header h1 a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.site-tagline {
+    margin: 0.1rem 0 0.4rem;
+    font-size: 0.8rem;
+    color: #8a8d91;
+}
+
+nav {
+    margin-top: 0.2rem;
+}
+
+nav a,
+nav span {
+    color: #b9bbbe;
+    margin-right: 1.1rem;
+    text-decoration: none;
+    font-size: 0.95rem;
+}
+
+nav a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+/* Main */
+main {
+    padding: 0.9rem 0 1.25rem;
+    min-height: 60vh;
+}
+
+/* Footer */
+footer {
+    background: #23272a;
+    padding: 0.9rem 0;
+    text-align: center;
+    font-size: 0.85rem;
+    color: #72767d;
+    border-top: 1px solid #3a3d42;
+}
+
+/* Content boxes */
+.category,
+.post,
+.form-box {
+    background: #36393f;
+    margin-bottom: 0.9rem;
+    padding: 1rem 1.1rem;
+    border: 1px solid #40444b;
+    border-radius: 6px;
+}
+
+.category h3 {
+    margin: 0 0 0.4rem;
+    color: #ffffff;
+    font-size: 1.15rem;
+}
+
+/* Lists */
+.forum-list,
+.topic-list {
+    list-style: none;
+    padding: 0;
+    margin: 0.4rem 0 0;
+}
+
+.forum-list li,
+.topic-list li {
+    padding: 0.45rem 0;
+    border-bottom: 1px solid #40444b;
+}
+
+.forum-list li:last-child,
+.topic-list li:last-child {
+    border-bottom: none;
+}
+
+.description {
+    color: #b9bbbe;
+    font-size: 0.92rem;
+}
+
+.meta {
+    color: #72767d;
+    font-size: 0.88rem;
+}
+
+/* Badges */
+.badge {
+    background: #a8433a;
+    color: #fff;
+    padding: 0.15rem 0.45rem;
+    border-radius: 4px;
+    font-size: 0.78rem;
+    font-weight: 600;
+}
+
+/* Buttons */
+.button,
+button,
+input[type="submit"] {
+    display: inline-block;
+    background: #5b8c7a;
+    color: #fff;
+    padding: 0.4rem 0.85rem;
+    text-decoration: none;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.92rem;
+    cursor: pointer;
+}
+
+.button:hover,
+button:hover,
+input[type="submit"]:hover {
+    background: #4a7566;
+}
+
+/* Links */
+a {
+    color: #7dbaa5;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+    margin-bottom: 0.9rem;
+    color: #b9bbbe;
+    font-size: 0.92rem;
+}
+
+.breadcrumb a {
+    color: #7dbaa5;
+}
+
+/* Posts */
+.post header {
+    background: transparent;
+    color: #dcddde;
+    padding: 0;
+    margin-bottom: 0.4rem;
+    font-size: 0.92rem;
+}
+
+.post time {
+    color: #72767d;
+    font-size: 0.82rem;
+    margin-left: 0.35rem;
+}
+
+/* Forms */
+form p {
+    margin: 0.65rem 0;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea {
+    width: 100%;
+    max-width: 100%;
+    padding: 0.45rem;
+    border: 1px solid #4f545c;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    background: #2c2f33;
+    color: #dcddde;
+}
+
+textarea {
+    min-height: 110px;
+}
+
+/* Pagination */
+.pagination {
+    margin-top: 1.1rem;
+    font-size: 0.92rem;
+}
+
+.pagination a {
+    margin: 0 0.35rem;
+    color: #7dbaa5;
+}
+
+/* Messages */
+.messages {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1rem;
+}
+
+.messages li {
+    padding: 0.6rem 0.9rem;
+    border-radius: 4px;
+    margin-bottom: 0.4rem;
+}
+
+.messages .success {
+    background: #2d4a3e;
+    color: #d4edda;
+    border: 1px solid #3d6a54;
+}
+
+.messages .error {
+    background: #4a2d2d;
+    color: #f8d7da;
+    border: 1px solid #6a3d3d;
+}
+
+/* Role styling */
+.role-admin {
+    color: #ff6b6b;
+    font-weight: 700;
+}
+
+.role-moderator {
+    color: #51cf66;
+    font-weight: 700;
+}
+
+.badge-admin {
+    background: #a8433a;
+    color: #fff;
+}
+
+.badge-moderator {
+    background: #0fb068;
+    color: #fff;
+}
+
+/* Header layout */
+.header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header-center {
+    text-align: center;
+    flex: 1;
+}
+
+.header-center h1 {
+    margin: 0;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.nav-button {
+    background: none;
+    border: none;
+    color: #b9bbbe;
+    font-size: 0.95rem;
+    cursor: pointer;
+    padding: 0;
+}
+
+.nav-button:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+/* Status dots */
+.status-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 0.4rem;
+    vertical-align: middle;
+}
+
+.dot-public {
+    background: #4dabf7;
+}
+
+.dot-restricted {
+    background: #51cf66;
+}
+
+.legend {
+    margin-top: 1.5rem;
+    font-size: 0.85rem;
+    color: #b9bbbe;
+    text-align: center;
+}

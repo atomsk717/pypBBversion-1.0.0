@@ -1,0 +1,17 @@
+{% extends "forum/base.html" %}
+
+{% block title %}Confirm delete post{% endblock %}
+
+{% block content %}
+<h2>Delete this post?</h2>
+<p>By {{ post.author.username }} on {{ post.created_at|date:"Y-m-d H:i" }}</p>
+<div class="post">
+    {{ post.content|linebreaks }}
+</div>
+
+<form method="post" action="{% url 'forum:delete_post' post.pk %}">
+    {% csrf_token %}
+    <button type="submit" class="button">Yes, delete post</button>
+    <a href="{% url 'forum:topic_detail' post.topic.pk %}">Cancel</a>
+</form>
+{% endblock %}

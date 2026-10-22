@@ -1,0 +1,14 @@
+{% extends "forum/base.html" %}
+
+{% block title %}Confirm delete topic{% endblock %}
+
+{% block content %}
+<h2>Delete topic: {{ topic.title }}?</h2>
+<p>This will permanently delete the topic and all its posts.</p>
+
+<form method="post" action="{% url 'forum:delete_topic' topic.pk %}">
+    {% csrf_token %}
+    <button type="submit" class="button">Yes, delete topic</button>
+    <a href="{% url 'forum:topic_detail' topic.pk %}">Cancel</a>
+</form>
+{% endblock %}

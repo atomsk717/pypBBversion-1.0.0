@@ -1,0 +1,53 @@
+{% extends "forum/base.html" %}
+{% load forum_tags %}
+
+{% block title %}{{ forum.name }}{% endblock %}
+
+{% block content %}
+<nav class="breadcrumb">
+    <a href="{% url 'forum:home' %}">Home</a> &raquo; {{ forum.name }}
+</nav>
+
+<h2>{{ forum.name }}</h2>
+{% if forum.description %}
+    <p class="description">{{ forum.description }}</p>
+{% endif %}
+
+{% if user.is_authenticated %}
+    <p><a class="button" href="{% url 'forum:create_topic' forum.slug %}">New Topic</a></p>
+{% endif %}
+
+{% if page_obj %}
+    <ul class="topic-list">
+        {% for topic in page_obj %}
+            <li>
+                <a href="{% url 'forum:topic_detail' topic.pk %}">{{ topic.title }}</a>
+                <span class="meta">
+                    by <span class="{{ topic.author|role_class }}">
+                        {{ topic.author.username }}
+                        {% if topic.author|is_forum_admin %}
+                            <span class="badge badge-admin">Admin</span>
+                        {% elif topic.author|is_moderator %}
+                            <span class="badge badge-moderator">Moderator</span>
+                        {% endif %}
+                    </span>
+                    {% if topic.is_locked %} &middot; <span class="badge">Locked</span>{% endif %}
+                </span>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <!-- Pagination -->
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}">&laquo; Previous</a>
+        {% endif %}
+        <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">Next &raquo;</a>
+        {% endif %}
+    </div>
+{% else %}
+    <p>No topics yet.</p>
+{% endif %}
+{% endblock %}

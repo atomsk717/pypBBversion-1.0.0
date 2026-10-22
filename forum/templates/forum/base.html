@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Forum{% endblock %}</title>
+    {% load static %}
+    {% load forum_tags %}
+    <link rel="stylesheet" href="{% static 'forum/css/style.css' %}">
+</head>
+<body>
+<header>
+    <div class="container header-inner">
+        <div class="header-left"></div>
+        <div class="header-center">
+            <h1><a href="{% url 'forum:home' %}">PyPBB</a></h1>
+            <p class="site-tagline">simple python + phpBB style · by atomsk</p>
+        </div>
+        <nav class="header-right">
+            {% if user.is_authenticated %}
+                <span class="{{ user|role_class }}">Hello, {{ user.username }}
+                    {% if user|is_forum_admin %}
+                        <span class="badge badge-admin">Admin</span>
+                    {% elif user|is_moderator %}
+                        <span class="badge badge-moderator">Moderator</span>
+                    {% endif %}
+                </span>
+                {% if user.is_staff %}
+                    <a href="{% url 'admin:index' %}">Admin</a>
+                {% endif %}
+                <form method="post" action="{% url 'accounts:logout' %}" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="nav-button">Logout</button>
+                </form>
+            {% else %}
+                <a href="{% url 'accounts:login' %}">Login</a>
+                <a href="{% url 'accounts:register' %}">Register</a>
+            {% endif %}
+        </nav>
+    </div>
+</header>
+    <main class="container">
+
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>phpBB-style forum &mdash; built with Django (no JavaScript)</p>
+        </div>
+    </footer>
+</body>
+</html>

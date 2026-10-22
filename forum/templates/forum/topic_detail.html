@@ -1,0 +1,82 @@
+{% extends "forum/base.html" %}
+{% load forum_tags %}
+
+{% block title %}{{ topic.title }}{% endblock %}
+
+{% block content %}
+<nav class="breadcrumb">
+    <a href="{% url 'forum:home' %}">Home</a> &raquo;
+    <a href="{% url 'forum:forum_detail' topic.forum.slug %}">{{ topic.forum.name }}</a> &raquo;
+    {{ topic.title }}
+</nav>
+
+<h2>{{ topic.title }}</h2>
+{% if topic.is_locked %}
+    <p class="badge">This topic is locked.</p>
+{% endif %}
+
+{% if can_moderate %}
+    <p>
+        <form method="post" action="{% url 'forum:toggle_lock' topic.pk %}" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" class="button">
+                {% if topic.is_locked %}Unlock Topic{% else %}Lock Topic{% endif %}
+            </button>
+        </form>
+        &nbsp;
+        <a class="button" href="{% url 'forum:confirm_delete_topic' topic.pk %}">
+            Delete Topic
+        </a>
+    </p>
+{% endif %}
+
+{% for post in page_obj %}
+    <article class="post">
+        <header>
+            <strong class="{{ post.author|role_class }}">
+                {{ post.author.username }}
+                {% if post.author|is_forum_admin %}
+                    <span class="badge badge-admin">Admin</span>
+                {% elif post.author|is_moderator %}
+                    <span class="badge badge-moderator">Moderator</span>
+                {% endif %}
+            </strong>
+            <time>{{ post.created_at|date:"Y-m-d H:i" }}</time>
+            {% if can_moderate %}
+                &nbsp;·&nbsp;
+                <a href="{% url 'forum:confirm_delete_post' post.pk %}">Delete</a>
+            {% endif %}
+        </header>
+        <div class="content">
+            {{ post.content|linebreaks }}
+        </div>
+    </article>
+    {% empty %}
+        <p class="description">No posts in this topic yet.</p>
+    {% endfor %}
+
+<!-- Pagination -->
+<div class="pagination">
+    {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}">&laquo; Previous</a>
+    {% endif %}
+    <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">Next &raquo;</a>
+    {% endif %}
+</div>
+
+{% if user.is_authenticated and not topic.is_locked %}
+    <h3>Reply</h3>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Post Reply</button>
+    </form>
+{% elif topic.is_locked %}
+    <p><em>This topic is locked. No new replies can be added.</em></p>
+{% else %}
+    <p><em>You must be logged in to reply.</em></p>
+{% endif %}
+{% endblock %}
+

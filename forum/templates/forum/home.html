@@ -1,0 +1,40 @@
+{% extends "forum/base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h2>Categories</h2>
+
+{% for category in categories %}
+    <section class="category">
+        <h3>{{ category.name }}</h3>
+        {% if category.description %}
+            <p class="description">{{ category.description }}</p>
+        {% endif %}
+
+        {% if category.public_forums %}
+            <ul class="forum-list">
+                {% for forum in category.public_forums %}
+                    <li>
+                        <span class="status-dot {% if forum.is_restricted %}dot-restricted{% else %}dot-public{% endif %}"></span>
+                        <a href="{% url 'forum:forum_detail' forum.slug %}">{{ forum.name }}</a>
+                        {% if forum.description %}
+                            <span class="description">— {{ forum.description }}</span>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="description">No forums in this category yet.</p>
+        {% endif %}
+    </section>
+    {% empty %}
+        <p class="description">No categories have been created yet.</p>
+{% endfor %}
+
+<div class="legend">
+    <span class="status-dot dot-public"></span> Open to everyone
+    &nbsp;&nbsp;
+    <span class="status-dot dot-restricted"></span> Registered users only
+</div>
+{% endblock %}
